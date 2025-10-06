@@ -8,22 +8,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Tamaño consistente con tus diseños FXML
         scene = new Scene(loadFXML("primary"), 1000, 600);
         stage.setScene(scene);
-        stage.setTitle("Tu Aplicación JavaFX");
+        stage.setTitle("Gestión de Jugadores - Cartas de Fútbol");
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 

@@ -3,26 +3,16 @@ package com.proyectojavafx;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import com.proyectojavafx.clases.Jugadores;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SecondaryController implements Initializable {
+public class QuaternaryController implements Initializable {
 
     @FXML private Button btnAtras;
-    @FXML private Button btnGuardar;
     @FXML private Button btnModificar;
     @FXML private Button btnDestacar;
     @FXML private Button btnEliminar;
-    
-    @FXML private TextField txtNombre;
-    @FXML private TextField txtApellidos;
-    @FXML private TextField txtEdad;
-    @FXML private TextField txtPosicion;
-    @FXML private TextField txtClub;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,31 +51,5 @@ public class SecondaryController implements Initializable {
                 e.printStackTrace();
             }
         });
-
-        btnGuardar.setOnAction(event -> {
-            guardarJugador();
-        });
-    }
-
-    private void guardarJugador() {
-        Jugadores jugadorManager = new Jugadores();
-        jugadorManager.AgregarJugador(txtNombre, txtApellidos, txtEdad, txtPosicion, txtClub);
-        
-        // Limpiar campos después de guardar
-        limpiarCampos();
-        
-        try {
-            App.setRoot("primary");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void limpiarCampos() {
-        txtNombre.clear();
-        txtApellidos.clear();
-        txtEdad.clear();
-        txtPosicion.clear();
-        txtClub.clear();
     }
 }

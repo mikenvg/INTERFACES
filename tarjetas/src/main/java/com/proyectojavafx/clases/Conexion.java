@@ -1,8 +1,7 @@
-package clases;
+package com.proyectojavafx.clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -18,16 +17,12 @@ public class Conexion {
     String cadena = "jdbc:mysql://"+ip+":"+puerto+"/"+bd;
 
     public Connection estableceConexion(){
-
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-
+            Class.forName("com.mysql.cj.jdbc.Driver"); // Driver actualizado
             conectar = DriverManager.getConnection(cadena, usuario, contraseña);
-
         } catch (Exception e) {
-            showAlert("Mensaje", "No se ha conectado a la base de datos, error: "+e.toString());
+            showAlert("Error", "No se ha conectado a la base de datos: "+e.getMessage());
         }
-
         return conectar;
     }
 
@@ -37,7 +32,7 @@ public class Conexion {
                 conectar.close();
             }
         } catch (Exception e) {
-            showAlert("Mensaje", "Error al cerrar conexion: "+e.toString());
+            showAlert("Error", "Error al cerrar conexión: "+e.getMessage());
         }
     }
 

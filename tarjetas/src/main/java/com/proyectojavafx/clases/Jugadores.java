@@ -1,12 +1,9 @@
-package clases;
-
-import java.io.FileInputStream;
-import java.util.concurrent.Callable;
-import java.sql.CallableStatement;
+package com.proyectojavafx.clases;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import java.sql.CallableStatement;
 
 public class Jugadores {
     
@@ -18,25 +15,23 @@ public class Jugadores {
         alert.showAndWait();
     }
 
-
     public void AgregarJugador(TextField nombre, TextField apellidos, TextField edad, TextField posicion, TextField club){
+        Conexion objetoConexion = new Conexion();
+        String consulta = "INSERT INTO Jugadores (nombre, apellidos, edad, posicion, club) VALUES (?, ?, ?, ?, ?)";
 
-        clases.Conexion objetoConexion = new clases.Conexion();
-
-        String consulta = "insert into Jugadores (nombre,apellidos,edad,posicion,club) values (?,?,?,?,?)";
-
-        try (CallableStatement cs = objetoConexion.estableceConexion().prepareCall(consulta)) {
+        try {
+            CallableStatement cs = objetoConexion.estableceConexion().prepareCall(consulta);
             cs.setString(1, nombre.getText());
             cs.setString(2, apellidos.getText());
-            cs.setString(3, edad.getText());
+            cs.setInt(3, Integer.parseInt(edad.getText()));
             cs.setString(4, posicion.getText());
             cs.setString(5, club.getText());
 
             cs.execute();
-            showAlert("Informacion", "Jugador guardado correctamente!");
+            showAlert("Éxito", "Jugador guardado correctamente!");
             
         } catch (Exception e) {
-            showAlert("Informacion", "Error al guardar "+e.toString());
+            showAlert("Error", "Error al guardar: "+e.getMessage());
         } finally {
             objetoConexion.cerrarConexion();
         }
